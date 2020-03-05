@@ -28,14 +28,14 @@ namespace Binary_Trees
             }
             return val;
         }
-        public Node(string item) 
+        public Node(string item)
         {
             this.item = item;
         }
         public void addNode(string item)
         {
             Node cur = this;
-            while(true)
+            while (true)
             {
                 if (toInt(cur.item) <= toInt(item))
                 {
@@ -63,7 +63,7 @@ namespace Binary_Trees
                 }
             }
         }
-        public Boolean findNode(string item) 
+        public Boolean findNode(string item)
         {
             Node cur = this;
             while (true)
@@ -98,9 +98,9 @@ namespace Binary_Trees
                         cur = cur.right;
                     }
                 }
-            } 
+            }
         }
-        public Boolean deleteNote(string item) 
+        public Boolean deleteNote(string item)
         {
             Node cur = this;
             while (true)
@@ -121,21 +121,9 @@ namespace Binary_Trees
                             }
                             else
                             {
-                                Node temp = new Node(cur.left.left.item);
-                                cur.left = temp;
-                                cur = cur.left.left;
-                                Node store = cur;
-                                while (cur.left != null)
-                                {
-                                    temp.addNode(cur.left.item);
-                                    cur = cur.left;
-                                }
-                                cur = store;
-                                while (cur.right != null)
-                                {
-                                    temp.addNode(cur.right.item);
-                                    cur = cur.right;
-                                }
+                                Node temp = cur.left;
+                                cur.left = null;
+                                addTree(ref cur, temp);
                             }
                             return true;
                         }
@@ -158,28 +146,43 @@ namespace Binary_Trees
                             }
                             else
                             {
-                                Node temp = new Node(cur.right.right.item);
-                                cur.right = temp;
-                                cur = cur.right.right;
-                                Node store = cur;
-                                while (cur.right != null)
-                                {
-                                    temp.addNode(cur.right.item);
-                                    cur = cur.right;
-                                }
-                                cur = store;
-                                while (cur.left != null)
-                                {
-                                    temp.addNode(cur.left.item);
-                                    cur = cur.left;
-                                }
+                                Node temp = cur.right;
+                                cur.right = null;
+                                addTree(ref cur, temp);
                             }
                             return true;
                         }
                         cur = cur.right;
                     }
                 }
-            } 
+            }
+        }
+        private void addTree(ref Node start, Node cur)
+        {
+            if (cur.left != null)
+            {
+                start.addNode(cur.left.item);
+                if (cur.left.left != null)
+                {
+                    addTree(ref start, cur.left.left);
+                }
+                if (cur.left.right != null)
+                {
+                    addTree(ref start, cur.left.right);
+                }
+            }
+            if (cur.right != null)
+            {
+                start.addNode(cur.right.item);
+                if (cur.right.left != null)
+                {
+                    addTree(ref start, cur.right.left);
+                }
+                if (cur.right.right != null)
+                {
+                    addTree(ref start, cur.right.right);
+                }
+            }
         }
         public void printTree()
         {
