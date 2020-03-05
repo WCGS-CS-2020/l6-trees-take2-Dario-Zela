@@ -163,25 +163,17 @@ namespace Binary_Trees
             if (cur.left != null)
             {
                 start.addNode(cur.left.item);
-                if (cur.left.left != null)
+                if (cur.left.left != null || cur.left.right != null)
                 {
-                    addTree(start, cur.left.left);
-                }
-                if (cur.left.right != null)
-                {
-                    addTree(start, cur.left.right);
+                    addTree(start, cur.left);
                 }
             }
             if (cur.right != null)
             {
                 start.addNode(cur.right.item);
-                if (cur.right.left != null)
+                if (cur.right.left != null || cur.right.right != null)
                 {
-                    addTree(start, cur.right.left);
-                }
-                if (cur.right.right != null)
-                {
-                    addTree(start, cur.right.right);
+                    addTree(start, cur.right);
                 }
             }
         }
